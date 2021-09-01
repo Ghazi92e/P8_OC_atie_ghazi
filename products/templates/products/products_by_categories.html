@@ -1,0 +1,22 @@
+{% block products %}
+<form method="get">
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" value="Submit" name="search">
+</form>
+    <h2>product</h2>
+
+    <ul>
+        {% for publisher in q %}
+            <li>{{ publisher.name }}</li>
+            <li>{{ publisher.nutriscore }}</li>
+            <form action="data" method="post">
+                {% csrf_token %}
+                <input type="submit" name="datatest" value="{{ publisher.id }}"></input>
+            <!--<input type="submit" value="Ajouter  produit">-->
+            </form>
+        {% endfor %}
+
+    </ul>
+
+{% endblock %}
