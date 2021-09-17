@@ -8,5 +8,5 @@ urlpatterns = [
     path('login/', views.login_user),
     path('connected', views.index),
     path('login/deconnexion/', views.logout_user),
-    #path('accounts/login/', views.lo(template_name='users/login.html'))
+    path('account', views.user_account),
 ]
