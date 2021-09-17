@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}Mon compte{% endblock title %}
+{% block header %}
+<header class="masthead" style="height: 50vh; min-height: 0vh;">
+    <div class="container px-4 px-lg-5 h-100">
+        <div class="row gx-4 gx-lg-5 h-100 align-items-center justify-content-center text-center">
+            <div class="col-lg-8 align-self-end">
+                <h1 class="text-white font-weight-bold">{{ user.username }}</h1>
+                <hr class="divider" />
+            </div>
+            <div class="col-lg-8 align-self-baseline">
+                <!--{% include "products/form_products.html" %}-->
+            </div>
+        </div>
+    </div>
+</header>
+{% endblock header %}
+{% block content %}
+    <p class="text-center" style="padding-top: 30px;">{{ user.email }}</p>
+{% endblock content %}
+{% block footer %}
+<section class="page-contact" id="contact" style="padding-top: 230px;">
+    <footer class="bg-light py-5 text-center">
+        <div class="container p-4 pb-0">
+            <section>
+            <p class="d-flex justify-content-center align-items-center">
+                <span class="me-3"><a href="/#contact">Contact</a></span>
+                <span class="me-3"><a href="/mentionslegales">Mentions légales</a></span>
+            </p>
+            </section>
+            <div class="small text-center text-muted">Copyright &copy; 2021 - Pur Beurre</div></div>
+        </div>
+    </footer>
+</section>
+{% endblock footer %}
