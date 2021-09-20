@@ -10,12 +10,11 @@
 </style>
 {% endblock add_header_styles %}
 {% block header %}
-<header class="masthead" style="height: 50vh; min-height: 0vh;">
+<header class="masthead" style="height: 55vh; min-height: 0vh;">
     <div class="container px-4 px-lg-5 h-100">
         <div class="row gx-4 gx-lg-5 h-100 align-items-center justify-content-center text-center">
             <div class="col-lg-8 align-self-end">
                 <h1 class="text-white font-weight-bold">{{ product.name }}</h1>
-                <hr class="divider" />
             </div>
             <div class="col-lg-8 align-self-baseline">
                 <!--{% include "products/form_products.html" %}-->
@@ -26,8 +25,8 @@
 {% endblock header %}
 {% block content %}
 <div class="container">
-    <div class="row text-center" style="padding-top: 40px;">
-        <div class="col">
+    <div class="row" style="padding-top: 40px;">
+        <div class="col text-center">
             {% if product.nutriscore == 'a' %}
                 <img src="https://static.openfoodfacts.org/images/misc/nutriscore-a.png">
             {% elif product.nutriscore == 'b' %}
@@ -40,13 +39,57 @@
                 <img src="https://static.openfoodfacts.org/images/misc/nutriscore-e.png">
             {% endif %}
         </div>
-        <div class="col">
+
+        <div class="col text-center">
             <p>Repères nutritionnels pour 100g</p>
-            <li>{{ product.nutrition_score_100g }}</li>
+            <ul class="list-unstyled">
+                <li>
+                    {% if product.fat_100g <= 3 %}
+                        <img src="https://fr.openfoodfacts.org/images/misc/low_30.png">
+                    {% elif product.fat_100g > 3 and product.fat_100g <= 20 %}
+                        <img src="https://fr.openfoodfacts.org/images/misc/moderate_30.png">
+                    {% else %}
+                        <img src="https://fr.openfoodfacts.org/images/misc/high_30.png">
+                    {% endif %}
+                        {{ product.fat_100g }} g <strong>Matières grasses / Lipides</strong>
+                </li>
+                <li> 
+                    {% if product.saturated_fat_100g <= 1.5 %}
+                        <img src="https://fr.openfoodfacts.org/images/misc/low_30.png">
+                    {% elif product.saturated_fat_100g > 1.5 and product.saturated_fat_100g <= 5 %}
+                        <img src="https://fr.openfoodfacts.org/images/misc/moderate_30.png">
+                    {% else %}
+                        <img src="https://fr.openfoodfacts.org/images/misc/high_30.png">
+                    {% endif %}                
+                    {{ product.saturated_fat_100g }} g <strong>Acides gras saturés</strong>
+                </li>
+    
+                <li> 
+                    {% if product.sugars_100g <= 5 %}
+                        <img src="https://fr.openfoodfacts.org/images/misc/low_30.png">
+                    {% elif product.sugars_100g > 5 and product.sugars_100g <= 12.5 %}
+                        <img src="https://fr.openfoodfacts.org/images/misc/moderate_30.png">
+                    {% else %}
+                        <img src="https://fr.openfoodfacts.org/images/misc/high_30.png">
+                    {% endif %}                
+                    {{ product.sugars_100g }} g <strong>Sucres</strong>
+                </li>
+    
+                <li>
+                    {% if product.salt_100g <= 0.3 %}
+                        <img src="https://fr.openfoodfacts.org/images/misc/low_30.png">
+                    {% elif product.salt_100g > 0.3 and product.salt_100g <= 1.5 %}
+                        <img src="https://fr.openfoodfacts.org/images/misc/moderate_30.png">
+                    {% else %}
+                        <img src="https://fr.openfoodfacts.org/images/misc/high_30.png">
+                    {% endif %}                
+                    {{ product.salt_100g }} g <strong>Sel</strong>
+                </li>
+            </ul>
         </div>
-        <div class="d-grid gap-2 d-md-block">
-            <a class="btn btn-primary" href="{{ product.url }}" role="button">Voir la fiche d'OpenFoodFacts</a>
-        </div>
+    </div>
+    <div class="text-center">
+        <a class="btn btn-primary" href="{{ product.url }}" target="_blank" role="button">Voir la fiche d'OpenFoodFacts</a>
     </div>
 </div>
 {% endblock content %}
