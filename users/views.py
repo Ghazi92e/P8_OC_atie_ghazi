@@ -1,14 +1,9 @@
-from products.models import Categories, Product
-from products.forms import NameForm
-from django.http.response import HttpResponseRedirect
-from django.shortcuts import get_object_or_404, redirect, render
+from products.forms import ProductForm
+from django.shortcuts import redirect, render
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
-from django import forms
 from .forms import RegisterUsers
-from django.http import HttpResponse
-from django.urls import reverse
 
 def index(request):
     return render(request, 'users/index.html')
@@ -36,9 +31,7 @@ def login_user(request):
         email = request.POST.get('email')
         user = authenticate(request, username=username, email=email, password=password)
         if user is not None:
-            print("ok")
             login(request, user)
-            print("bien loguer")
             return redirect('/')
         else:
             pass
@@ -47,7 +40,7 @@ def login_user(request):
     return render(request, 'users/login.html', {'form': form})
 
 def user_account(request):
-    form_prod = NameForm(request.POST)
+    form_prod = ProductForm(request.POST)
     return render(request, 'users/user_account.html', {'form': form_prod})
 
 def logout_user(request):
