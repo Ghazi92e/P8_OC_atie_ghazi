@@ -40,7 +40,7 @@ class PublisherListViewTest(TestCase):
         self.user = User.objects.create_user(username="test", email="test@gmail.com", password="testuser")
 
         self.user.save()
-        self.resplog = self.client.login(username="test", password="testuser")
+        self.client.login(username="test", password="testuser")
         Categories.objects.create(name="chocolate")
         cat1 = get_object_or_404(Categories, name="chocolate")
         self.product1 = Product.objects.create(
@@ -92,7 +92,7 @@ class PublisherListViewTest(TestCase):
         form = ProductForm()
         self.assertTrue(form.fields['product_form'].label == None or form.fields['product_form'].label == 'Product form')
         
-    def test_details(self):
+    def test_fav_prod_login_required(self):
         request = self.factory.get(self.product_fav_url)
         request.user = self.user
         response = PublisherListView.get_favorite_products((request))
