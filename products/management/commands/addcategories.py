@@ -13,5 +13,4 @@ class Command(BaseCommand):
         ]
         for cat in categories:
             Categories.add_categories(cat)
-
         print("Les catégories ont été ajoutées à votre base de données !")

@@ -5,8 +5,10 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from .forms import RegisterUsers
 
+
 def index(request):
     return render(request, 'users/index.html')
+
 
 def user_register(request):
     if request.method == 'POST':
@@ -15,13 +17,15 @@ def user_register(request):
             data_username = form.cleaned_data['username']
             data_email = form.cleaned_data['email']
             data_password = form.cleaned_data['password']
-            user = User.objects.create_user(data_username, data_email, data_password)
+            user = User.objects.create_user(data_username,
+                                            data_email, data_password)
             user.save()
             return redirect('/')
     else:
         form = RegisterUsers()
-        
+
     return render(request, 'users/register.html', {'form': form})
+
 
 def login_user(request):
     form = RegisterUsers(request.POST)
@@ -29,7 +33,8 @@ def login_user(request):
         username = request.POST.get('username')
         password = request.POST.get('password')
         email = request.POST.get('email')
-        user = authenticate(request, username=username, email=email, password=password)
+        user = authenticate(request, username=username,
+                            email=email, password=password)
         if user is not None:
             login(request, user)
             return redirect('/')
@@ -39,9 +44,11 @@ def login_user(request):
         messages.error(request, "Error")
     return render(request, 'users/login.html', {'form': form})
 
+
 def user_account(request):
     form_prod = ProductForm(request.POST)
     return render(request, 'users/user_account.html', {'form': form_prod})
+
 
 def logout_user(request):
     logout(request)

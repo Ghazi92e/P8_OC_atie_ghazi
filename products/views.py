@@ -1,15 +1,13 @@
-from django.db import reset_queries
 from products.models import Categories, Product, Product_favorite
 from django.views.generic import ListView
-from django.http.response import HttpResponse, HttpResponseRedirect
-from django.shortcuts import get_object_or_404, render, redirect
+from django.shortcuts import get_object_or_404, render
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 
 from products.forms import ProductForm
 
+
 class PublisherListView(ListView):
-      
     @login_required(login_url='/users/login/')
     def get_favorite_products(request):
         form = ProductForm(request.GET)
@@ -20,8 +18,9 @@ class PublisherListView(ListView):
             user_id = User.objects.get(pk=current_user.id)
             product_id = Product.objects.get(pk=request.POST['datatest'])
             Product_favorite.add_favorite_products(user_id, product_id)
-        return render(request, 'products/product_favorite.html', {'data_fav': data_fav, 'form': form })
-        
+        return render(request, 'products/product_favorite.html',
+                      {'data_fav': data_fav, 'form': form})
+
     def get_products_by_cat(request):
         query = None
         form = None
@@ -31,12 +30,15 @@ class PublisherListView(ListView):
                 data = form.cleaned_data['product_form']
                 pub = get_object_or_404(Categories, name=data)
                 query = Product.objects.filter(categories=pub).order_by('nutriscore')
-                return render(request, 'products/products_by_categories.html', {'form': form, 'q': query})
+                return render(request, 'products/products_by_categories.html',
+                              {'form': form, 'q': query})
             else:
                 form = ProductForm()
-        return render(request, 'purbeurre_project/home.html', {'form': form, 'q': query})
+        return render(request, 'purbeurre_project/home.html',
+                      {'form': form, 'q': query})
 
     def detail_prod(request, pk):
         form = ProductForm(request.GET)
         product = Product.objects.get(pk=pk)
-        return render(request, 'products/product_detail.html', context={'product': product, 'form': form })
+        return render(request, 'products/product_detail.html',
+                      context={'product': product, 'form': form})

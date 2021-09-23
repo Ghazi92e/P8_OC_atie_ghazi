@@ -21,7 +21,8 @@ class Command(BaseCommand):
                         'search_terms': cat,
                         'search_tag': 'categories',
                         'fields': 'generic_name_fr,'
-                                    'nutrition_grades,url,image_url,fat_100g,salt_100g,saturated-fat_100g,sugars_100g',
+                        'nutrition_grades,url,image_url,fat_100g,'
+                        'salt_100g,saturated-fat_100g,sugars_100g',
                         'tag_contains_0': 'contains',
                         'page_size': 30,
                         'page': 1,
@@ -35,7 +36,14 @@ class Command(BaseCommand):
             r = Categories.objects.get(name=cat)
             for data in self.products[cat]:
                 if len(data) > 7:
-                    Product.add_products(data["fat_100g"], data["generic_name_fr"], data["image_url"], data["nutrition_grades"], data["salt_100g"], data["saturated-fat_100g"], data["sugars_100g"], data["url"], categories=r)
+                    Product.add_products(data["fat_100g"],
+                                         data["generic_name_fr"],
+                                         data["image_url"],
+                                         data["nutrition_grades"],
+                                         data["salt_100g"],
+                                         data["saturated-fat_100g"],
+                                         data["sugars_100g"],
+                                         data["url"], categories=r)
         print("Les produits ont été ajoutés à votre base de données !")
 
     def filterdata(self):
