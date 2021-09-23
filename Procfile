@@ -1,1 +1,1 @@
-web: gunicorn purbeurre_project:app --preload
+web: gunicorn purbeurre_project.wsgi --preload
