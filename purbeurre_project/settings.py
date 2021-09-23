@@ -14,7 +14,7 @@ import os
 from pathlib import Path
 import environ
 import django_heroku
-
+import dj_database_url
 
 env = environ.Env()
 environ.Env.read_env()
@@ -151,4 +151,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
 
 django_heroku.settings(locals())
+
+if os.environ.get('ENV') == 'PRODUCTION':
+    db_from_env = dj_database_url.config(conn_max_age=500)
+    DATABASES['default'].update(db_from_env)
 
