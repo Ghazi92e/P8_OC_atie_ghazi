@@ -1,0 +1,25 @@
+.products-block {
+    background: whitesmoke;
+    box-shadow: 5px 10px 10px 0 rgba(0, 0, 0, 0.2);
+    border-radius: 20px;
+    margin-bottom: 10px;
+}
+
+li {
+    list-style-type: none;
+}
+
+a {
+    list-style-type: none;
+}
+
+.button-add-products {
+    padding-bottom: 20px;
+}
+
+h2 {
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+
