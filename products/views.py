@@ -29,7 +29,8 @@ class PublisherListView(ListView):
             if form.is_valid():
                 data = form.cleaned_data['product_form']
                 pub = get_object_or_404(Categories, name=data)
-                query = Product.objects.filter(categories=pub).order_by('nutriscore')
+                query = Product.objects.filter(
+                    categories=pub).order_by('nutriscore')
                 return render(request, 'products/products_by_categories.html',
                               {'form': form, 'q': query})
             else:
