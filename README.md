@@ -30,28 +30,30 @@ source env/bin/activate
 ```
 pip install -r requirements.txt
 ```
-5. Create a .env file in folder purbeurre_project(with file settings)
+5. Create a database with Postgresql(pgAdmin)
+
+6. Create a .env file in folder purbeurre_project(with file settings)
 ```
 touch .env
 ```
-6. Set up .env file
+7. Set up .env file
 ```
 SECRET_KEY=''
 DATABASE_NAME=''
 DATABASE_USER=''
 DATABASE_PASS=''
 ```
-7. Add categories products from OpenFoodFacts API
+8. Add categories products from OpenFoodFacts API in database
 ```
 python manage.py addcategories
 ```
 
-8. Add products from OpenFoodFacts API
+9. Add products from OpenFoodFacts API in database
 ```
 python manage.py addproducts
 ```
 
-9. Run application
+10. Run application
 ```
 python manage.py runserver
 ```
