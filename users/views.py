@@ -11,6 +11,9 @@ def index(request):
 
 
 def user_register(request):
+    '''
+    Create user account
+    '''
     if request.method == 'POST':
         form = RegisterUsers(request.POST)
         if form.is_valid():
@@ -28,6 +31,9 @@ def user_register(request):
 
 
 def login_user(request):
+    '''
+    Authenticate user and create session
+    '''
     form = RegisterUsers(request.POST)
     if form.is_valid():
         username = request.POST.get('username')
@@ -46,10 +52,16 @@ def login_user(request):
 
 
 def user_account(request):
+    '''
+    Displays user account details
+    '''
     form_prod = ProductForm(request.POST)
     return render(request, 'users/user_account.html', {'form': form_prod})
 
 
 def logout_user(request):
+    '''
+    User logout
+    '''
     logout(request)
     return redirect('/')

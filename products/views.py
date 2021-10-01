@@ -8,9 +8,12 @@ from products.forms import ProductForm
 
 
 class PublisherListView(ListView):
-    # get favorite products from database saved by users
+
     @login_required(login_url='/users/login/')
     def get_favorite_products(request):
+        '''
+        get favorite products from database saved by users
+        '''
         form = ProductForm(request.GET)
         data_fav = None
         current_user = request.user
@@ -22,8 +25,10 @@ class PublisherListView(ListView):
         return render(request, 'products/product_favorite.html',
                       {'data_fav': data_fav, 'form': form})
 
-    # get products by categories send by users in search bar
     def get_products_by_cat(request):
+        '''
+        get products by categories send by users in search bar
+        '''
         query = None
         form = None
         if request.method == 'GET':
@@ -40,8 +45,10 @@ class PublisherListView(ListView):
         return render(request, 'purbeurre_project/home.html',
                       {'form': form, 'q': query})
 
-    # displays products details
     def detail_prod(request, pk):
+        '''
+        displays products details
+        '''
         form = ProductForm(request.GET)
         product = Product.objects.get(pk=pk)
         return render(request, 'products/product_detail.html',
