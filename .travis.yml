@@ -1,18 +1,23 @@
-language: python
+os: linux
+dist: xenial
 
+services:
+  - postgresql
+  - xvfb
+
+language: python
 python:
-      - '3.8'
+     - '3.8'
+
+addons:
+   chrome: stable
 
 before_script:
-      - wget https://chromedriver.storage.googleapis.com/83.0.4103.14/chromedriver_linux64.zip
-      - unzip chromedriver_linux64.zip -d /home/travis/build/Ghazi92e/P8_OC_atie_ghazi/
-      - export CHROME_BIN=chromium-browser
+      - sudo apt install unzip
       - pip install -r requirements.txt
 
 env: 
   - DJANGO_SETTINGS_MODULE="purbeurre_project.settings.travis"
 
-services:
-      - postgresql
 script:
-      - python manage.py test
+     - python manage.py test
