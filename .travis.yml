@@ -1,24 +1,18 @@
 language: python
-dist: xenial
+
 python:
       - '3.8'
-before-install:
-    - wget -N https://chromedriver.storage.googleapis.com/91.0.4472.101/chromedriver_linux64.zip -P ~/
-    - unzip ~/chromedriver_linux64.zip -d ~/
-    - rm ~/chromedriver_linux64.zip
-    - sudo mv -f ~/chromedriver /usr/local/share/
-    - sudo chmod +x /usr/local/share/chromedriver
-    - sudo ln -s /usr/local/share/chromedriver /usr/local/bin/chromedriver
-addons:
-    chrome: stable
 
 before_script:
+      - wget https://chromedriver.storage.googleapis.com/83.0.4103.14/chromedriver_linux64.zip
+      - unzip chromedriver_linux64.zip -d /home/travis/build/Ghazi92e/P8_OC_atie_ghazi/
+      - export CHROME_BIN=chromium-browser
       - pip install -r requirements.txt
-      - google-chrome-stable --no-sandbox --disable-dev-shm-usage --headless --start-maximized --disable-gpu --remote-debugging-port=9222 http://localhost &
 
-env: DJANGO_SETTINGS_MODULE="purbeurre_project.settings.travis"
+env: 
+  - DJANGO_SETTINGS_MODULE="purbeurre_project.settings.travis"
 
 services:
       - postgresql
 script:
-      - ./manage.py test
+      - python manage.py test
