@@ -13,7 +13,6 @@ addons:
    chrome: stable
 
 before_script:
-      - sudo apt install unzip
       - pip install -r requirements.txt
 
 env: 
