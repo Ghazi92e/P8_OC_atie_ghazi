@@ -1,7 +1,6 @@
-from django.http.response import Http404
 from products.models import Categories, Product, Product_favorite
 from django.views.generic import ListView
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 
@@ -40,12 +39,13 @@ class PublisherListView(ListView):
                     pub = Categories.objects.get(name=data)
                     query = Product.objects.filter(
                         categories=pub).order_by('nutriscore')
-                    return render(request, 'products/products_by_categories.html',
-                            {'form': form, 'q': query})
+                    return render(request,
+                                  'products/products_by_categories.html',
+                                  {'form': form, 'q': query})
         except Categories.DoesNotExist:
             return render(request, 'products/error_categories.html')
         return render(request, 'purbeurre_project/home.html',
-                {'form': form, 'q': query})
+                      {'form': form, 'q': query})
 
     def detail_prod(request, pk):
         '''
@@ -55,7 +55,3 @@ class PublisherListView(ListView):
         product = Product.objects.get(pk=pk)
         return render(request, 'products/product_detail.html',
                       context={'product': product, 'form': form})
-
-
-    def page_not_found_view(request, exception):
-        return render(request, 'error_categories.html', status=404)
