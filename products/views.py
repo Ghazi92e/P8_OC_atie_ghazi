@@ -32,18 +32,18 @@ class PublisherListView(ListView):
         '''
         query = None
         form = None
-        # try:
-        if request.method == 'GET':
-            form = ProductForm(request.GET)
-            if form.is_valid():
-                data = form.cleaned_data['product_form'].lower()
-                pub = Categories.objects.get(name=data)
-                query = Product.objects.filter(
-                    categories=pub).order_by('nutriscore')
-                return render(request, 'products/products_by_categories.html',
-                        {'form': form, 'q': query})
-        # except Categories.DoesNotExist:
-        #     return render(request, 'products/error_categories.html')
+        try:
+            if request.method == 'GET':
+                form = ProductForm(request.GET)
+                if form.is_valid():
+                    data = form.cleaned_data['product_form'].lower()
+                    pub = Categories.objects.get(name=data)
+                    query = Product.objects.filter(
+                        categories=pub).order_by('nutriscore')
+                    return render(request, 'products/products_by_categories.html',
+                            {'form': form, 'q': query})
+        except Categories.DoesNotExist:
+            return render(request, 'products/error_categories.html')
         return render(request, 'purbeurre_project/home.html',
                 {'form': form, 'q': query})
 
